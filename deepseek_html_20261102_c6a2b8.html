@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>کارت چرخان کهکشانی</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #05010f;
+    font-family: Tahoma, sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ===== پس‌زمینه کهکشان ===== */
+  .galaxy-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 50%, #1a0b2e 0%, #0a0417 40%, #03010a 100%);
+  }
+
+  /* ستاره‌های کوچک */
+  .stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+      radial-gradient(1px 1px at 40px 70px, #fff, transparent),
+      radial-gradient(1px 1px at 50px 160px, #fff, transparent),
+      radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+      radial-gradient(1px 1px at 130px 80px, #fff, transparent),
+      radial-gradient(1px 1px at 160px 120px, #fff, transparent),
+      radial-gradient(2px 2px at 200px 60px, #fff, transparent),
+      radial-gradient(2px 2px at 250px 180px, #fff, transparent),
+      radial-gradient(1px 1px at 300px 100px, #fff, transparent),
+      radial-gradient(1px 1px at 350px 200px, #fff, transparent),
+      radial-gradient(2px 2px at 400px 50px, #fff, transparent),
+      radial-gradient(1px 1px at 450px 150px, #fff, transparent),
+      radial-gradient(1px 1px at 500px 250px, #fff, transparent),
+      radial-gradient(2px 2px at 550px 90px, #fff, transparent),
+      radial-gradient(1px 1px at 600px 220px, #fff, transparent);
+    background-size: 650px 300px;
+    animation: twinkle 4s ease-in-out infinite alternate;
+    opacity: 0.9;
+  }
+
+  .stars.layer2 {
+    background-size: 400px 400px;
+    animation: twinkle 6s ease-in-out infinite alternate-reverse;
+    opacity: 0.6;
+    background-position: 100px 100px;
+  }
+
+  .stars.layer3 {
+    background-size: 900px 500px;
+    animation: twinkle 8s ease-in-out infinite alternate;
+    opacity: 0.5;
+    background-position: 200px 200px;
+  }
+
+  @keyframes twinkle {
+    0%   { opacity: 0.4; }
+    50%  { opacity: 0.9; }
+    100% { opacity: 0.5; }
+  }
+
+  /* ستاره‌های درخشان بزرگ */
+  .stars-bright {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(3px 3px at 15% 25%, #fff, transparent),
+      radial-gradient(3px 3px at 75% 65%, #fff, transparent),
+      radial-gradient(2.5px 2.5px at 30% 80%, #cfe8ff, transparent),
+      radial-gradient(2.5px 2.5px at 85% 15%, #ffe9c9, transparent),
+      radial-gradient(2px 2px at 50% 45%, #fff, transparent),
+      radial-gradient(3px 3px at 10% 70%, #d6b3ff, transparent),
+      radial-gradient(2px 2px at 65% 30%, #fff, transparent);
+    background-size: 100% 100%;
+    animation: glow-bright 3s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 4px #fff);
+  }
+
+  @keyframes glow-bright {
+    0%   { opacity: 0.5; transform: scale(1); }
+    100% { opacity: 1;   transform: scale(1.03); }
+  }
+
+  /* کهکشان راه شیری - نوار بزرگ */
+  .milky-way {
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 140%;
+    height: 200%;
+    background:
+      radial-gradient(ellipse 50% 20% at 50% 50%, rgba(140, 90, 220, 0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 15% at 60% 60%, rgba(80, 130, 255, 0.28) 0%, transparent 70%),
+      radial-gradient(ellipse 35% 12% at 40% 40%, rgba(255, 120, 220, 0.22) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 25% at 50% 50%, rgba(60, 40, 120, 0.25) 0%, transparent 80%);
+    transform: rotate(-25deg);
+    filter: blur(8px);
+    animation: nebula-drift 25s ease-in-out infinite alternate;
+  }
+
+  .milky-way::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle 3px at 20% 30%, #fff, transparent),
+      radial-gradient(circle 2px at 30% 50%, #fff, transparent),
+      radial-gradient(circle 4px at 40% 20%, #e0d0ff, transparent),
+      radial-gradient(circle 2px at 55% 70%, #fff, transparent),
+      radial-gradient(circle 3px at 65% 40%, #b0d0ff, transparent),
+      radial-gradient(circle 2px at 75% 60%, #fff, transparent),
+      radial-gradient(circle 3px at 85% 35%, #ffd0f0, transparent),
+      radial-gradient(circle 2px at 15% 65%, #fff, transparent),
+      radial-gradient(circle 2px at 45% 85%, #fff, transparent);
+    background-size: 100% 100%;
+    opacity: 0.9;
+  }
+
+  @keyframes nebula-drift {
+    0%   { transform: rotate(-25deg) translate(0, 0); }
+    100% { transform: rotate(-22deg) translate(3%, 2%); }
+  }
+
+  /* ===== صحنه کارت ===== */
+  .scene {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-container {
+    perspective: 1200px;
+    width: 300px;
+    height: 400px;
+    position: relative;
+  }
+
+  /* هاله نور دور کارت */
+  .card-container::before {
+    content: '';
+    position: absolute;
+    inset: -30px;
+    background: radial-gradient(ellipse at center, rgba(140, 100, 255, 0.35), transparent 70%);
+    border-radius: 50%;
+    filter: blur(20px);
+    animation: aura-pulse 3s ease-in-out infinite alternate;
+    z-index: -1;
+  }
+
+  @keyframes aura-pulse {
+    0%   { opacity: 0.6; transform: scale(0.95); }
+    100% { opacity: 1;   transform: scale(1.05); }
+  }
+
+  .card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: rotateY(180deg);
+    cursor: pointer;
+  }
+
+  .card.flipping {
+    transition: transform 2.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 2px rgba(160, 130, 255, 0.4),
+      0 0 30px rgba(120, 90, 255, 0.6),
+      0 0 60px rgba(80, 60, 180, 0.4),
+      0 10px 40px rgba(0, 0, 0, 0.7);
+  }
+
+  .card-face img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-front {
+    transform: rotateY(0deg);
+  }
+
+  .card-back {
+    transform: rotateY(180deg);
+  }
+
+  /* ===== موج ضربه ===== */
+  .ripple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(180, 150, 255, 0.9);
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: 0 0 20px rgba(160, 120, 255, 0.8);
+    animation: ripple-out 1s ease-out forwards;
+  }
+
+  .ripple:nth-child(2) { animation-delay: 0.1s; }
+  .ripple:nth-child(3) { animation-delay: 0.2s; }
+
+  @keyframes ripple-out {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 1;
+      border-width: 4px;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(12);
+      opacity: 0;
+      border-width: 1px;
+    }
+  }
+
+  /* درخشش روی کارت هنگام کلیک */
+  .card-shine {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.5), transparent 60%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+    transition: opacity 0.3s;
+  }
+
+  .card-shine.active {
+    opacity: 1;
+    animation: shine-fade 0.8s ease-out forwards;
+  }
+
+  @keyframes shine-fade {
+    0%   { opacity: 0.8; }
+    100% { opacity: 0; }
+  }
+
+  /* راهنمای کلیک */
+  .hint {
+    position: relative;
+    margin-top: 40px;
+    color: rgba(220, 210, 255, 0.85);
+    font-size: 15px;
+    text-align: center;
+    letter-spacing: 1px;
+    animation: hint-pulse 2s ease-in-out infinite;
+    text-shadow: 0 0 12px rgba(140, 100, 255, 0.8);
+  }
+
+  @keyframes hint-pulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50%      { opacity: 1;   transform: scale(1.05); }
+  }
+
+  /* ستاره‌های چشمک‌زن اضافه */
+  .shooting-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px 2px #fff, 0 0 12px 4px rgba(180, 150, 255, 0.6);
+    opacity: 0;
+    animation: shoot 6s linear infinite;
+  }
+
+  .shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to left, rgba(255,255,255,0.8), transparent);
+    transform: translateY(-50%);
+  }
+
+  .s1 { top: 10%; left: -10%; animation-delay: 0s; }
+  .s2 { top: 40%; left: -10%; animation-delay: 3s; }
+  .s3 { top: 70%; left: -10%; animation-delay: 5s; }
+
+  @keyframes shoot {
+    0%   { transform: translate(0, 0) rotate(-30deg); opacity: 0; }
+    5%   { opacity: 1; }
+    30%  { opacity: 1; }
+    40%  { transform: translate(120vw, 60vh) rotate(-30deg); opacity: 0; }
+    100% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- پس‌زمینه کهکشان -->
+<div class="galaxy-bg">
+  <div class="milky-way"></div>
+  <div class="stars"></div>
+  <div class="stars layer2"></div>
+  <div class="stars layer3"></div>
+  <div class="stars-bright"></div>
+  <div class="shooting-star s1"></div>
+  <div class="shooting-star s2"></div>
+  <div class="shooting-star s3"></div>
+</div>
+
+<!-- صحنه کارت -->
+<div class="scene">
+  <div class="card-container" id="container">
+    <div class="card" id="card">
+      <!-- روی کارت -->
+      <div class="card-face card-front">
+        <img src="front.jpg" alt="روی کارت" id="frontImg">
+      </div>
+      <!-- پشت کارت -->
+      <div class="card-face card-back">
+        <img src="back.jpg" alt="پشت کارت" id="backImg">
+      </div>
+      <div class="card-shine" id="shine"></div>
+    </div>
+  </div>
+
+  <div class="hint" id="hint">✨ روی کارت کلیک کنید ✨</div>
+</div>
+
+<audio id="sound" src="sound.mp3"></audio>
+
+<script>
+  const card = document.getElementById('card');
+  const container = document.getElementById('container');
+  const sound = document.getElementById('sound');
+  const shine = document.getElementById('shine');
+  const hint = document.getElementById('hint');
+
+  let isFlipping = false;
+  let firstClickDone = false;
+
+  card.addEventListener('click', (e) => {
+    if (isFlipping) return;
+
+    // افکت موج (ripple) از محل کلیک
+    createRipple(e);
+
+    // افکت درخشش روی کارت
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    shine.style.setProperty('--x', x + '%');
+    shine.style.setProperty('--y', y + '%');
+    shine.classList.remove('active');
+    void shine.offsetWidth; // ری‌فلو برای ری‌استارت انیمیشن
+    shine.classList.add('active');
+
+    // ---------- کلیک اول: چرخش و نمایش روی کارت ----------
+    if (!firstClickDone) {
+      isFlipping = true;
+      card.classList.add('flipping');
+
+      // 180 + 1440 = 1620 → معادل 0 (روی کارت)
+      card.style.transform = 'rotateY(1620deg)';
+
+      setTimeout(() => {
+        isFlipping = false;
+        firstClickDone = true;
+        card.classList.remove('flipping');
+        card.style.transform = 'rotateY(0deg)';
+
+        // تغییر متن راهنما
+        hint.textContent = '✨ دوباره کلیک کن تا صدا پخش بشه ✨';
+      }, 2500);
+    }
+    // ---------- کلیک دوم: فقط پخش صدا ----------
+    else {
+      sound.currentTime = 0;
+      sound.play().catch(() => {});
+    }
+  });
+
+  // تابع ساخت موج ضربه
+  function createRipple(e) {
+    const rect = container.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    for (let i = 0; i < 3; i++) {
+      const ripple = document.createElement('div');
+      ripple.className = 'ripple';
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      container.appendChild(ripple);
+
+      setTimeout(() => ripple.remove(), 1300);
+    }
+  }
+</script>
+
+</body>
+</html>
